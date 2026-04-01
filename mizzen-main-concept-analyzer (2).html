@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lemonade Test | Mizzen+Main</title>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/helvetica-neue-5');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Mizzen+Main Brand Colors */
+            --mizzen-blue: #081A2C;
+            --birdie-blue: #0058A3;
+            --cream: #EFE8DE;
+            --white: #FFFFFF;
+            --tan: #BEA072;
+            --grey: #8D99A5;
+            --olive-green: #969C8E;
+            --forest-green: #51664D;
+            --amber: #AF331B;
+            --gold: #D18F55;
+        }
+
+        body {
+            font-family: 'Aktiv Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: var(--cream);
+            min-height: 100vh;
+            padding: 32px 24px;
+            color: var(--mizzen-blue);
+            letter-spacing: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: var(--white);
+            border-radius: 0;
+            padding: 48px 48px 32px 48px;
+            margin-bottom: 2px;
+        }
+
+        .header h1 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            font-size: 33px;
+            margin-bottom: 12px;
+            color: var(--mizzen-blue);
+            letter-spacing: 0;
+        }
+
+        .header .subtitle {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            color: var(--grey);
+            line-height: 1.6;
+            letter-spacing: 0;
+        }
+
+        .progress-container {
+            background: var(--white);
+            padding: 24px 48px;
+            margin-bottom: 2px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--cream);
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--birdie-blue);
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-family: 'Aktiv Grotesk', sans-serif;
+            font-size: 12px;
+            color: var(--grey);
+            text-align: center;
+            letter-spacing: 100;
+            text-transform: uppercase;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 48px;
+            margin-bottom: 2px;
+        }
+
+        .section-title {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            font-size: 33px;
+            margin-bottom: 8px;
+            color: var(--mizzen-blue);
+            letter-spacing: 0;
+        }
+
+        .section-subtitle {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            color: var(--grey);
+            margin-bottom: 40px;
+            font-style: italic;
+            letter-spacing: 0;
+        }
+
+        .question {
+            margin-bottom: 40px;
+        }
+
+        .question-text {
+            font-family: 'Aktiv Grotesk', sans-serif;
+            font-size: 16px;
+            color: var(--mizzen-blue);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            letter-spacing: 0;
+        }
+
+        .question-text strong {
+            font-weight: 700;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        .input-label {
+            font-family: 'Aktiv Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--grey);
+            margin-bottom: 8px;
+            display: block;
+            letter-spacing: 0;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--grey);
+            border-radius: 0;
+            font-size: 14px;
+            font-family: 'Aktiv Grotesk', sans-serif;
+            transition: all 0.2s;
+            background: var(--white);
+            color: var(--mizzen-blue);
+            letter-spacing: 0;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--birdie-blue);
+            box-shadow: 0 0 0 2px rgba(0, 88, 163, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            border: 1px solid var(--grey);
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--white);
+        }
+
+        .radio-option:hover {
+            border-color: var(--birdie-blue);
+            background: rgba(0, 88, 163, 0.02);
+        }
+
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 14px;
+            cursor: pointer;
+            accent-color: var(--birdie-blue);
+        }
+
+        .radio-option.selected {
+            border-color: var(--birdie-blue);
+            background: rgba(0, 88, 163, 0.04);
+        }
+
+        .radio-option span {
+            font-family: 'Aktiv Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--mizzen-blue);
+            letter-spacing: 0;
+        }
+
+        .scale-group {
+            display: flex;
+            gap: 12px;
+            justify-content: space-between;
+            margin-top: 12px;
+        }
+
+        .scale-option {
+            flex: 1;
+            text-align: center;
+        }
+
+        .scale-button {
+            width: 100%;
+            padding: 20px 12px;
+            border: 1px solid var(--grey);
+            background: var(--white);
+            cursor: pointer;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            transition: all 0.2s;
+            color: var(--mizzen-blue);
+            letter-spacing: 0;
+        }
+
+        .scale-button:hover {
+            border-color: var(--birdie-blue);
+            background: rgba(0, 88, 163, 0.02);
+        }
+
+        .scale-button.selected {
+            border-color: var(--birdie-blue);
+            background: var(--birdie-blue);
+            color: var(--white);
+        }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-family: 'Aktiv Grotesk', sans-serif;
+            font-size: 12px;
+            color: var(--grey);
+            letter-spacing: 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            font-family: 'Aktiv Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0;
+        }
+
+        .btn-primary {
+            background: var(--birdie-blue);
+            color: var(--white);
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: var(--mizzen-blue);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--mizzen-blue);
+            border: 1px solid var(--grey);
+        }
+
+        .btn-secondary:hover {
+            background: var(--cream);
+        }
+
+        .results-card {
+            background: var(--birdie-blue);
+            color: var(--white);
+            padding: 56px;
+            margin-bottom: 2px;
+        }
+
+        .results-title {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            font-size: 33px;
+            margin-bottom: 32px;
+            letter-spacing: 0;
+        }
+
+        .score-display {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .score-number {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            font-size: 72px;
+            margin-bottom: 8px;
+            letter-spacing: 0;
+        }
+
+        .score-label {
+            font-family: 'Aktiv Grotesk', sans-serif;
+            font-size: 16px;
+            opacity: 0.95;
+            letter-spacing: 0;
+        }
+
+        .recommendation {
+            background: var(--white);
+            color: var(--mizzen-blue);
+            padding: 32px;
+            margin-bottom: 2px;
+        }
+
+        .recommendation-title {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            margin-bottom: 16px;
+            letter-spacing: 0;
+        }
+
+        .recommendation-title.green {
+            color: var(--forest-green);
+        }
+
+        .recommendation-title.yellow {
+            color: var(--gold);
+        }
+
+        .recommendation-title.red {
+            color: var(--amber);
+        }
+
+        .recommendation p {
+            font-family: 'Aktiv Grotesk', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--mizzen-blue);
+            letter-spacing: 0;
+        }
+
+        .detail-section {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            font-family: 'Aktiv Grotesk', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0;
+        }
+
+        .detail-label {
+            opacity: 0.95;
+        }
+
+        .detail-value {
+            font-weight: 700;
+        }
+
+        .improvement-section {
+            background: var(--cream);
+            padding: 32px;
+            margin-bottom: 2px;
+        }
+
+        .improvement-title {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            margin-bottom: 24px;
+            color: var(--mizzen-blue);
+            letter-spacing: 0;
+        }
+
+        .improvement-steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .improvement-steps li {
+            counter-increment: step-counter;
+            margin-bottom: 20px;
+            padding-left: 40px;
+            position: relative;
+            font-family: 'Aktiv Grotesk', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--mizzen-blue);
+            letter-spacing: 0;
+        }
+
+        .improvement-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 28px;
+            height: 28px;
+            background: var(--birdie-blue);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .improvement-steps li strong {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .slider-container {
+            margin: 32px 0;
+        }
+
+        .slider-label {
+            font-family: 'Aktiv Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--mizzen-blue);
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 700;
+            letter-spacing: 0;
+        }
+
+        .slider-value {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--birdie-blue);
+            margin-bottom: 12px;
+            letter-spacing: 0;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 4px;
+            background: var(--grey);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--birdie-blue);
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--birdie-blue);
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .projection-box {
+            background: var(--white);
+            border: 1px solid var(--grey);
+            padding: 24px;
+            margin-top: 16px;
+        }
+
+        .projection-box h4 {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 16px;
+            color: var(--mizzen-blue);
+            letter-spacing: 0;
+        }
+
+        .projection-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-family: 'Aktiv Grotesk', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0;
+        }
+
+        .projection-row.highlight {
+            font-weight: 700;
+            color: var(--birdie-blue);
+            padding-top: 10px;
+            border-top: 1px solid var(--grey);
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .image-preview-item {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border: 1px solid var(--grey);
+            overflow: hidden;
+        }
+
+        .image-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview-item .remove-image {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: var(--mizzen-blue);
+            color: var(--white);
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-preview-item .remove-image:hover {
+            background: var(--amber);
+        }
+
+        @media (max-width: 600px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .scale-group {
+                flex-wrap: wrap;
+            }
+
+            .header,
+            .card,
+            .progress-container,
+            .results-card,
+            .recommendation,
+            .improvement-section {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div style="font-size: 48px; margin-bottom: 16px;">🍋</div>
+            <h1>The Lemonade Test</h1>
+            <p class="subtitle">A framework for analyzing fruit, its potential to be juice, and whether or not we should squeeze.</p>
+        </div>
+
+        <div class="progress-container hidden" id="progressContainer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Part 1 of 4</div>
+        </div>
+
+        <!-- Start Screen -->
+        <div class="card fade-in" id="startScreen">
+            <h2 class="section-title">Input Idea Here</h2>
+            
+            <div class="input-group">
+                <label class="input-label">Name of Concept</label>
+                <input type="text" id="projectName" placeholder="e.g., Summer Swim Launch">
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Describe the concept in 1-2 sentences.</label>
+                <textarea id="projectDescription" placeholder="What's the big idea?"></textarea>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="startAnalysis()">Start Analysis</button>
+            </div>
+        </div>
+
+        <!-- Part 1: Investment -->
+        <div class="card hidden" id="part1">
+            <h2 class="section-title">Part 1: Production Cost</h2>
+            <p class="section-subtitle">What resources are required to execute this concept?</p>
+
+            <div class="question">
+                <p class="input-label">Include all photography, video, design, technology, agency fees, etc. required to execute this idea.</p>
+                
+                <div class="input-group">
+                    <label class="input-label">Production Costs</label>
+                    <input type="number" id="productionCosts" placeholder="$">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goBack()">Back</button>
+                <button class="btn btn-primary" onclick="nextSection(2)">Next</button>
+            </div>
+        </div>
+
+        <!-- Part 2: Idea Quality -->
+        <div class="card hidden" id="part2">
+            <h2 class="section-title">Part 2: Idea Quality</h2>
+            <p class="section-subtitle">Is this, subjectively, a good creative concept?</p>
+
+            <div class="question">
+                <div class="question-text"><strong>Does this idea feel fresh and distinctive?</strong> Or does it feel like something we (or competitors) have done before?</div>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="q1" value="5">
+                        <span>Totally fresh – haven't seen anything like this</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q1" value="4">
+                        <span>Pretty distinctive – has some unique elements</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q1" value="3">
+                        <span>Somewhat familiar – seen similar concepts</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q1" value="2">
+                        <span>Pretty derivative – feels like others</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q1" value="1">
+                        <span>Been done – nothing new here</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text"><strong>Is there a clear "aha" moment?</strong> Can you explain the core concept in one sentence that makes people lean in?</div>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="q2" value="5">
+                        <span>Yes! People immediately get excited when they hear it</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q2" value="4">
+                        <span>Pretty clear – most people get it quickly</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q2" value="3">
+                        <span>Sort of – takes some explaining</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q2" value="2">
+                        <span>Unclear – needs a lot of context</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q2" value="1">
+                        <span>No – can't articulate the core idea simply</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text"><strong>Does it have stopping power?</strong> Would this make someone pause their scroll, turn their head, or tell a friend?</div>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="q3" value="5">
+                        <span>Absolutely – this will make people stop and share</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q3" value="4">
+                        <span>Probably – it's eye-catching and interesting</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q3" value="3">
+                        <span>Maybe – depends on execution</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q3" value="2">
+                        <span>Doubtful – pretty easy to scroll past</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q3" value="1">
+                        <span>No – lacks stopping power</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text"><strong>Does this feel like us?</strong> Could this concept only come from our brand, or could any competitor do the same thing?</div>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="q4" value="5">
+                        <span>100% us – only we could do this authentically</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q4" value="4">
+                        <span>Mostly us – fits our brand well</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q4" value="3">
+                        <span>Could work – not specifically ours though</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q4" value="2">
+                        <span>Questionable fit – feels off-brand</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q4" value="1">
+                        <span>Not us – anyone could do this</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text"><strong>Can you picture our customer engaging with this?</strong> In real life, is this something our customer will think twice about?</div>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="q5" value="5">
+                        <span>Definitely – can vividly picture them loving this</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q5" value="4">
+                        <span>Probably – seems relevant to their lives</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q5" value="3">
+                        <span>Maybe – hard to visualize their reaction</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q5" value="2">
+                        <span>Doubtful – not sure they'd care</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q5" value="1">
+                        <span>No – doesn't connect with them</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text"><strong>If this were someone else's idea, would I wish we'd thought of it?</strong></div>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="q6" value="5">
+                        <span>Hell yes – I'd be jealous</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q6" value="4">
+                        <span>Probably – it's a good idea</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q6" value="3">
+                        <span>Maybe – it's fine</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q6" value="2">
+                        <span>Probably not – doesn't excite me</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="q6" value="1">
+                        <span>No – not impressed</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goBack()">Back</button>
+                <button class="btn btn-primary" onclick="nextSection(3)">Next</button>
+            </div>
+        </div>
+
+        <!-- Part 3: Strategic Value -->
+        <div class="card hidden" id="part3">
+            <h2 class="section-title">Part 3: Strategic Value</h2>
+            <p class="section-subtitle">What business goals beyond direct revenue can this achieve?</p>
+
+            <p class="question-text">Rate each dimension from 1 (low) to 5 (high)</p>
+
+            <div class="question">
+                <div class="question-text"><strong>Brand Positioning</strong><br>Does this reinforce or expand how customers perceive us?</div>
+                <div class="scale-labels">
+                    <span>Low impact</span>
+                    <span>High impact</span>
+                </div>
+                <div class="scale-group" id="brandPositioning">
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('brandPositioning', 1, this)">1</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('brandPositioning', 2, this)">2</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('brandPositioning', 3, this)">3</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('brandPositioning', 4, this)">4</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('brandPositioning', 5, this)">5</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text"><strong>Customer Acquisition</strong><br>Does this reach new customer segments we want?</div>
+                <div class="scale-labels">
+                    <span>Low impact</span>
+                    <span>High impact</span>
+                </div>
+                <div class="scale-group" id="customerAcquisition">
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('customerAcquisition', 1, this)">1</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('customerAcquisition', 2, this)">2</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('customerAcquisition', 3, this)">3</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('customerAcquisition', 4, this)">4</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('customerAcquisition', 5, this)">5</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text"><strong>Category Leadership</strong><br>Does this establish us as a leader in a key category?</div>
+                <div class="scale-labels">
+                    <span>Low impact</span>
+                    <span>High impact</span>
+                </div>
+                <div class="scale-group" id="categoryLeadership">
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('categoryLeadership', 1, this)">1</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('categoryLeadership', 2, this)">2</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('categoryLeadership', 3, this)">3</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('categoryLeadership', 4, this)">4</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('categoryLeadership', 5, this)">5</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text"><strong>Competitive Differentiation</strong><br>Does this create separation from competitors?</div>
+                <div class="scale-labels">
+                    <span>Low impact</span>
+                    <span>High impact</span>
+                </div>
+                <div class="scale-group" id="competitiveDiff">
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('competitiveDiff', 1, this)">1</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('competitiveDiff', 2, this)">2</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('competitiveDiff', 3, this)">3</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('competitiveDiff', 4, this)">4</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('competitiveDiff', 5, this)">5</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text"><strong>Strategic Enabler</strong><br>Does this enable future opportunities or capabilities?</div>
+                <div class="scale-labels">
+                    <span>Low impact</span>
+                    <span>High impact</span>
+                </div>
+                <div class="scale-group" id="strategicEnabler">
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('strategicEnabler', 1, this)">1</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('strategicEnabler', 2, this)">2</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('strategicEnabler', 3, this)">3</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('strategicEnabler', 4, this)">4</button>
+                    </div>
+                    <div class="scale-option">
+                        <button class="scale-button" onclick="selectScale('strategicEnabler', 5, this)">5</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goBack()">Back</button>
+                <button class="btn btn-primary" onclick="nextSection(4)">Next</button>
+            </div>
+        </div>
+
+        <!-- Part 4: Expected Returns -->
+        <div class="card hidden" id="part4">
+            <h2 class="section-title">Part 4: Expected Returns</h2>
+            <p class="section-subtitle">What measurable outcomes will come out?</p>
+
+            <div class="question">
+                <div class="question-text"><strong>Direct Revenue Impact</strong></div>
+                <p class="input-label">Calculate potential revenue driven from this idea</p>
+                
+                <div class="two-column">
+                    <div>
+                        <label class="input-label">Conservative Estimate</label>
+                        <div class="input-group">
+                            <label class="input-label">Units Sold</label>
+                            <input type="number" id="unitsConservative" placeholder="e.g., 300">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Avg Price</label>
+                            <input type="number" id="priceConservative" placeholder="$">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Product Margin %</label>
+                            <input type="number" id="marginConservative" placeholder="e.g., 50">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="input-label">100% of Inventory</label>
+                        <div class="input-group">
+                            <label class="input-label">Units (Total Inventory)</label>
+                            <input type="number" id="unitsOptimistic" placeholder="e.g., 800">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Avg Price</label>
+                            <input type="number" id="priceOptimistic" placeholder="$">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Product Margin %</label>
+                            <input type="number" id="marginOptimistic" placeholder="e.g., 60">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-text"><strong>Customer Acquisition</strong></div>
+                <p class="input-label">This won't impact ROI calculations, but helps frame the strategic value</p>
+                
+                <div class="input-group">
+                    <label class="input-label">How many new customers will this attract? (Conservative estimate)</label>
+                    <input type="number" id="newCustomersConservative" placeholder="e.g., 1000">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">How many new customers will this attract? (Optimistic estimate)</label>
+                    <input type="number" id="newCustomersOptimistic" placeholder="e.g., 2500">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goBack()">Back</button>
+                <button class="btn btn-primary" onclick="showMediaSpendDecision()">Next</button>
+            </div>
+        </div>
+
+        <!-- Marketing Spend Decision -->
+        <div class="card hidden" id="mediaSpendSection">
+            <h2 class="section-title">Marketing Spend Decision</h2>
+            <p class="section-subtitle">Based on the strength of concept, how much should we invest in promoting it?</p>
+
+            <!-- Preliminary Score Card -->
+            <div style="background: var(--birdie-blue); color: var(--white); padding: 32px; margin-bottom: 24px;">
+                <div style="font-family: 'Aktiv Grotesk', sans-serif; font-size: 14px; margin-bottom: 12px; opacity: 0.9;">
+                    Preliminary Score (without marketing spend)
+                </div>
+                <div style="font-family: 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 64px; line-height: 1; margin-bottom: 16px;" id="prelimTotalScore">--</div>
+                <div style="font-family: 'Aktiv Grotesk', sans-serif; font-size: 14px; opacity: 0.9;">out of 100</div>
+                
+                <div style="display: flex; gap: 24px; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.2); flex-wrap: wrap;">
+                    <div>
+                        <div style="font-size: 12px; opacity: 0.8; margin-bottom: 4px;">Idea Quality</div>
+                        <div style="font-family: 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 20px;" id="prelim-idea">--/50</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; opacity: 0.8; margin-bottom: 4px;">Organic ROI</div>
+                        <div style="font-family: 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 20px;" id="prelim-roi">--x</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed ROI Breakdown -->
+            <div style="background: white; padding: 32px; margin-bottom: 24px; border-left: 4px solid var(--birdie-blue);">
+                <h3 style="font-family: 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 20px; margin-bottom: 24px; color: var(--mizzen-blue);">Expected ROI Analysis</h3>
+                
+                <!-- Organic/Conservative State -->
+                <div style="margin-bottom: 32px;">
+                    <h4 style="font-family: 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 16px; color: var(--birdie-blue);">Conservative Outcome (No Marketing Spend)</h4>
+                    
+                    <div style="background: var(--cream); padding: 20px; margin-bottom: 16px;">
+                        <div style="font-family: 'Aktiv Grotesk', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 12px; color: var(--mizzen-blue);">CONSERVATIVE DIRECT REVENUE:</div>
+                        <div style="font-family: 'Helvetica Neue', sans-serif; font-size: 14px; line-height: 1.8; color: var(--mizzen-blue);">
+                            <div style="margin-bottom: 8px;">
+                                <span style="opacity: 0.7;">Units:</span>
+                                <span style="float: right; font-weight: 700;" id="roi-units-cons">--</span>
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <span style="opacity: 0.7;">Avg Price:</span>
+                                <span style="float: right; font-weight: 700;" id="roi-price-cons">$--</span>
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <span style="opacity: 0.7;">Product Margin:</span>
+                                <span style="float: right; font-weight: 700;" id="roi-margin-cons">--%</span>
+                            </div>
+                            <div style="padding-top: 12px; margin-top: 12px; border-top: 2px solid var(--mizzen-blue);">
+                                <span style="font-weight: 700;">Gross Profit:</span>
+                                <span style="float: right; font-weight: 700; color: var(--birdie-blue); font-size: 18px;" id="roi-revenue-cons">$--</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 16px; padding: 12px; background: rgba(0, 88, 163, 0.05); font-size: 12px; line-height: 1.5; color: var(--grey);">
+                            <strong style="color: var(--mizzen-blue);">+ Customer Acquisition:</strong> <span id="roi-customers-cons">--</span> new customers (not included in ROI calculation)
+                        </div>
+                    </div>
+
+                    <div style="background: var(--cream); padding: 20px; margin-bottom: 16px;">
+                        <div style="font-family: 'Aktiv Grotesk', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 12px; color: var(--mizzen-blue);">CURRENT INVESTMENT:</div>
+                        <div style="font-family: 'Helvetica Neue', sans-serif; font-size: 14px; line-height: 1.8; color: var(--mizzen-blue);">
+                            <div style="margin-bottom: 8px;">
+                                <span style="opacity: 0.7;">Production Costs:</span>
+                                <span style="float: right; font-weight: 700;" id="roi-production">$--</span>
+                            </div>
+                            <div style="padding-top: 12px; margin-top: 12px; border-top: 2px solid var(--mizzen-blue);">
+                                <span style="font-weight: 700;">Total Base Investment:</span>
+                                <span style="float: right; font-weight: 700; color: var(--amber); font-size: 18px;" id="roi-total-invest">$--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--birdie-blue); color: white; padding: 24px; text-align: center;">
+                        <div style="font-family: 'Aktiv Grotesk', sans-serif; font-size: 13px; margin-bottom: 8px; opacity: 0.9;">Worst-Case ROI</div>
+                        <div style="font-family: 'Helvetica Neue', sans-serif; font-size: 16px; margin-bottom: 16px; opacity: 0.9;" id="roi-formula-current">$-- ÷ $-- = --x</div>
+                        <div style="font-family: 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 48px;" id="roi-current-big">--x</div>
+                        <div style="font-family: 'Aktiv Grotesk', sans-serif; font-size: 13px; margin-top: 8px; opacity: 0.9;">What we'd achieve without marketing spend</div>
+                    </div>
+                </div>
+
+                <!-- Interactive Scenario Planner -->
+                <div style="background: white; padding: 32px; margin-bottom: 32px; border-left: 4px solid var(--gold);">
+                    <h3 style="font-family: 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 20px; margin-bottom: 16px; color: var(--mizzen-blue);">Scenario Planner</h3>
+                    <p style="font-family: 'Aktiv Grotesk', sans-serif; font-size: 14px; line-height: 1.6; color: var(--grey); margin-bottom: 24px;">
+                        Adjust units sold and marketing spend to find the right balance. Watch the ROI update in real-time.
+                    </p>
+
+                    <div style="margin-bottom: 24px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <label style="font-family: 'Aktiv Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: var(--mizzen-blue);">Units Sold</label>
+                            <input type="number" id="scenarioUnits" style="width: 120px; padding: 8px; border: 1px solid var(--grey); font-family: 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 16px; text-align: right;">
+                        </div>
+                        <input type="range" id="scenarioUnitsSlider" style="width: 100%; height: 6px; background: var(--grey); outline: none; -webkit-appearance: none; margin-bottom: 8px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--grey);">
+                            <span id="scenario-units-min">--</span>
+                            <span id="scenario-units-max">--</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 24px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <label style="font-family: 'Aktiv Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: var(--mizzen-blue);">Marketing Spend</label>
+                            <input type="number" id="scenarioMedia" style="width: 120px; padding: 8px; border: 1px solid var(--grey); font-family: 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 16px; text-align: right;" placeholder="$0">
+                        </div>
+                        <input type="range" min="0" max="100000" value="0" step="5000" id="scenarioMediaSlider" style="width: 100%; height: 6px; background: var(--grey); outline: none; -webkit-appearance: none; margin-bottom: 8px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--grey);">
+                            <span>$0</span>
+                            <span>$50K</span>
+                            <span>$100K</span>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--cream); padding: 24px; margin-bottom: 16px;">
+                        <h4 style="font-family: 'Helvetica Neue', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 16px; color: var(--mizzen-blue);">Projected Outcome</h4>
+                        <div style="font-family: 'Helvetica Neue', sans-serif; font-size: 14px; line-height: 1.8;">
+                            <div style="margin-bottom: 8px;">
+                                <span style="opacity: 0.7;">Revenue:</span>
+                                <span style="float: right; font-weight: 700;" id="scenario-total-revenue">$--</span>
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <span style="opacity: 0.7;">Gross Profit:</span>
+                                <span style="float: right; font-weight: 700;" id="scenario-revenue">$--</span>
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <span style="opacity: 0.7;">Production Costs:</span>
+                                <span style="float: right; font-weight: 700;" id="scenario-production">$--</span>
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <span style="opacity: 0.7;">Marketing Spend:</span>
+                                <span style="float: right; font-weight: 700;" id="scenario-marketing">$--</span>
+                            </div>
+                            <div style="padding-top: 12px; margin-top: 12px; border-top: 2px solid var(--mizzen-blue);">
+                                <span style="font-weight: 700;">ROI:</span>
+                                <span style="float: right; font-weight: 700; font-size: 20px;" id="scenario-roi">--x</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+                        <div style="flex: 1; text-align: center; padding: 12px; background: rgba(81, 102, 77, 0.1); border: 2px solid transparent;" id="target-2x">
+                            <div style="font-size: 20px; font-weight: 700; color: var(--forest-green);">2x</div>
+                            <div style="font-size: 11px; color: var(--grey);">Target</div>
+                        </div>
+                        <div style="flex: 1; text-align: center; padding: 12px; background: rgba(81, 102, 77, 0.1); border: 2px solid transparent;" id="target-3x">
+                            <div style="font-size: 20px; font-weight: 700; color: var(--forest-green);">3x</div>
+                            <div style="font-size: 11px; color: var(--grey);">Target</div>
+                        </div>
+                        <div style="flex: 1; text-align: center; padding: 12px; background: rgba(81, 102, 77, 0.1); border: 2px solid transparent;" id="target-4x">
+                            <div style="font-size: 20px; font-weight: 700; color: var(--forest-green);">4x</div>
+                            <div style="font-size: 11px; color: var(--grey);">Target</div>
+                        </div>
+                        <div style="flex: 1; text-align: center; padding: 12px; background: rgba(81, 102, 77, 0.1); border: 2px solid transparent;" id="target-5x">
+                            <div style="font-size: 20px; font-weight: 700; color: var(--forest-green);">5x</div>
+                            <div style="font-size: 11px; color: var(--grey);">Target</div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goBack()">Back</button>
+                <button class="btn btn-primary" onclick="calculateResults()">See Final Results</button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" style="display: none;">
+            <div style="background: white; padding: 40px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <h2 style="font-family: 'Helvetica Neue', sans-serif; font-size: 32px; font-weight: 700; margin-bottom: 32px; color: var(--mizzen-blue);">Your Analysis Results</h2>
+                
+                <!-- Score Display -->
+                <div style="text-align: center; padding: 40px; background: var(--cream); margin-bottom: 32px; border-radius: 8px;">
+                    <div style="font-family: 'Helvetica Neue', sans-serif; font-size: 72px; font-weight: 700; color: var(--birdie-blue); margin-bottom: 8px;" id="totalScore">--</div>
+                    <div style="font-family: 'Aktiv Grotesk', sans-serif; font-size: 16px; color: var(--grey);">Overall Score (out of 100)</div>
+                </div>
+
+                <!-- Details -->
+                <div style="background: white; border: 1px solid var(--grey); padding: 24px; margin-bottom: 24px;">
+                    <div style="font-family: 'Aktiv Grotesk', sans-serif; font-size: 14px;">
+                        <div style="display: grid; grid-template-columns: 1fr auto; gap: 16px; margin-bottom: 16px;">
+                            <div><strong>Idea Quality Score:</strong></div>
+                            <div style="text-align: right;" id="ideaScore">--/50</div>
+                        </div>
+                        
+                        <div style="border-top: 2px solid var(--grey); padding-top: 16px; margin-top: 16px;">
+                            <div style="display: grid; grid-template-columns: 1fr auto; gap: 16px; margin-bottom: 12px;">
+                                <div><strong>Expected Revenue:</strong></div>
+                                <div style="text-align: right; font-weight: 700;" id="expectedRevenue">$--</div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr auto; gap: 16px; margin-bottom: 12px;">
+                                <div><strong>Total Investment:</strong></div>
+                                <div style="text-align: right; font-weight: 700;" id="totalInvestment">$--</div>
+                            </div>
+                            
+                            <div style="border-top: 2px solid var(--mizzen-blue); padding-top: 12px; margin-top: 12px;">
+                                <div style="display: grid; grid-template-columns: 1fr auto; gap: 16px;">
+                                    <div><strong style="color: var(--forest-green);">Expected Profit:</strong></div>
+                                    <div style="text-align: right; font-weight: 700; font-size: 18px; color: var(--forest-green);" id="expectedProfit">$--</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendation -->
+                <div style="padding: 32px; margin-bottom: 24px; border-radius: 8px;" id="recommendationCard">
+                    <h3 style="font-family: 'Helvetica Neue', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 16px;" id="recommendationTitle">--</h3>
+                    <p style="font-family: 'Aktiv Grotesk', sans-serif; font-size: 16px; line-height: 1.6;" id="recommendationText">--</p>
+                </div>
+
+                <!-- Improvement Section -->
+                <div id="improvementSection" style="display: none;">
+                    <h3 style="font-family: 'Helvetica Neue', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--mizzen-blue);">📊 Concept Analysis</h3>
+                    <div id="improvementContent"></div>
+                </div>
+
+                <!-- Return to Scenario Planner Button -->
+                <div style="margin-top: 32px;">
+                    <button onclick="returnToScenarioPlanner()" style="width: 100%; padding: 16px; background: var(--birdie-blue); color: white; border: none; border-radius: 4px; font-family: 'Aktiv Grotesk', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer;">Return to Scenario Planner</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSection = 0;
+        let data = {
+            strategic: {},
+            ideaQuality: {},
+            investment: {},
+            returns: {}
+        };
+
+        // Add interactivity to radio buttons
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'radio') {
+                const parent = e.target.closest('.radio-group');
+                if (parent) {
+                    parent.querySelectorAll('.radio-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    e.target.closest('.radio-option').classList.add('selected');
+                }
+            }
+        });
+
+        function startAnalysis() {
+            const projectName = document.getElementById('projectName').value;
+            if (!projectName.trim()) {
+                alert('Please enter a project name to continue');
+                return;
+            }
+            data.projectName = projectName;
+            data.projectDescription = document.getElementById('projectDescription').value;
+            
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('progressContainer').classList.remove('hidden');
+            document.getElementById('part1').classList.remove('hidden');
+            currentSection = 1;
+            updateProgress();
+        }
+
+        function nextSection(part) {
+            // Validate current section
+            if (currentSection === 2) {
+                for (let i = 1; i <= 6; i++) {
+                    const answer = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (!answer) {
+                        alert('Please answer all questions before continuing');
+                        return;
+                    }
+                    data.ideaQuality[`q${i}`] = parseInt(answer.value);
+                }
+            }
+
+            if (currentSection === 3) {
+                const required = ['brandPositioning', 'customerAcquisition', 'categoryLeadership', 'competitiveDiff', 'strategicEnabler'];
+                for (const key of required) {
+                    if (!data.strategic[key]) {
+                        alert('Please rate all strategic dimensions before continuing');
+                        return;
+                    }
+                }
+            }
+
+            document.getElementById(`part${currentSection}`).classList.add('hidden');
+            document.getElementById(`part${part}`).classList.remove('hidden');
+            currentSection = part;
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
+
+        function goBack() {
+            if (currentSection === 1) {
+                document.getElementById('part1').classList.add('hidden');
+                document.getElementById('startScreen').classList.remove('hidden');
+                document.getElementById('progressContainer').classList.add('hidden');
+                currentSection = 0;
+            } else {
+                document.getElementById(`part${currentSection}`).classList.add('hidden');
+                document.getElementById(`part${currentSection - 1}`).classList.remove('hidden');
+                currentSection--;
+                updateProgress();
+            }
+            window.scrollTo(0, 0);
+        }
+
+        function updateProgress() {
+            const progress = (currentSection / 5) * 100; // Changed to 5 parts now
+            document.getElementById('progressFill').style.width = progress + '%';
+            if (currentSection === 5) {
+                document.getElementById('progressText').textContent = `Marketing Spend Decision`;
+            } else {
+                document.getElementById('progressText').textContent = `Part ${currentSection} of 4`;
+            }
+        }
+
+        function selectScale(groupId, value, button) {
+            const group = document.getElementById(groupId);
+            group.querySelectorAll('.scale-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            button.classList.add('selected');
+            data.strategic[groupId] = value;
+        }
+
+        function showMediaSpendDecision() {
+            // Calculate preliminary scores
+            data.investment.productionCosts = parseFloat(document.getElementById('productionCosts').value) || 0;
+            data.investment.baseCosts = data.investment.productionCosts; // No more otherCosts
+
+            // Calculate from units, price, margin
+            data.returns.unitsC = parseFloat(document.getElementById('unitsConservative').value) || 0;
+            data.returns.priceC = parseFloat(document.getElementById('priceConservative').value) || 0;
+            data.returns.marginC = parseFloat(document.getElementById('marginConservative').value) || 0;
+            data.returns.unitsO = parseFloat(document.getElementById('unitsOptimistic').value) || 0;
+            data.returns.priceO = parseFloat(document.getElementById('priceOptimistic').value) || 0;
+            data.returns.marginO = parseFloat(document.getElementById('marginOptimistic').value) || 0;
+
+            const revenueConservative = data.returns.unitsC * data.returns.priceC * (data.returns.marginC / 100);
+            const revenueOptimistic = data.returns.unitsO * data.returns.priceO * (data.returns.marginO / 100);
+
+            data.returns.newCustomersC = parseFloat(document.getElementById('newCustomersConservative').value) || 0;
+            data.returns.newCustomersO = parseFloat(document.getElementById('newCustomersOptimistic').value) || 0;
+
+            // Store for later use - just direct revenue
+            data.returns.conservativeTotal = revenueConservative;
+            data.returns.optimisticTotal = revenueOptimistic;
+
+            // Calculate preliminary scores using CONSERVATIVE REVENUE ONLY
+            const ideaQualityScore = Object.values(data.ideaQuality).reduce((a, b) => a + b, 0);
+            const ideaQualityPercent = (ideaQualityScore / 30) * 25;
+
+            const strategicScore = Object.values(data.strategic).reduce((a, b) => a + b, 0);
+            const strategicPercent = (strategicScore / 25) * 25;
+
+            const organicROI = data.investment.baseCosts > 0 ? (revenueConservative / data.investment.baseCosts) : 0;
+            const roiScore = Math.min((organicROI * 10), 25);
+
+            const executionScore = 12;
+            const learningScore = 8;
+
+            const preliminaryTotal = Math.round(ideaQualityPercent + strategicPercent + roiScore + executionScore + learningScore);
+
+            // Display preliminary total score
+            document.getElementById('prelimTotalScore').textContent = preliminaryTotal;
+            document.getElementById('prelim-idea').textContent = Math.round(ideaQualityPercent + strategicPercent) + '/50';
+            document.getElementById('prelim-roi').textContent = organicROI.toFixed(1) + 'x';
+
+            // Populate detailed ROI breakdown - REVENUE ONLY
+            document.getElementById('roi-units-cons').textContent = data.returns.unitsC.toLocaleString();
+            document.getElementById('roi-price-cons').textContent = '$' + data.returns.priceC.toLocaleString();
+            document.getElementById('roi-margin-cons').textContent = data.returns.marginC + '%';
+            document.getElementById('roi-revenue-cons').textContent = '$' + Math.round(revenueConservative).toLocaleString();
+            document.getElementById('roi-customers-cons').textContent = data.returns.newCustomersC.toLocaleString();
+            
+            document.getElementById('roi-production').textContent = '$' + data.investment.productionCosts.toLocaleString();
+            document.getElementById('roi-total-invest').textContent = '$' + data.investment.baseCosts.toLocaleString();
+            
+            document.getElementById('roi-formula-current').textContent = '$' + Math.round(revenueConservative).toLocaleString() + ' ÷ $' + data.investment.baseCosts.toLocaleString() + ' = ' + organicROI.toFixed(1) + 'x';
+            document.getElementById('roi-current-big').textContent = organicROI.toFixed(1) + 'x';
+
+            // Set up scenario planner - max is 100% of inventory (optimistic units)
+            const minUnits = Math.floor(data.returns.unitsC * 0.5);
+            const maxUnits = data.returns.unitsO; // 100% of inventory
+            const defaultUnits = data.returns.unitsO;
+            
+            document.getElementById('scenario-units-min').textContent = minUnits.toLocaleString();
+            document.getElementById('scenario-units-max').textContent = maxUnits.toLocaleString();
+            
+            const unitsSlider = document.getElementById('scenarioUnitsSlider');
+            const unitsInput = document.getElementById('scenarioUnits');
+            unitsSlider.min = minUnits;
+            unitsSlider.max = maxUnits;
+            unitsSlider.value = defaultUnits;
+            unitsInput.value = defaultUnits;
+            
+            const scenarioMediaSlider = document.getElementById('scenarioMediaSlider');
+            const scenarioMediaInput = document.getElementById('scenarioMedia');
+            scenarioMediaInput.value = 0;
+            
+            function updateScenario() {
+                const units = parseInt(unitsInput.value) || defaultUnits;
+                const mediaSpend = parseInt(scenarioMediaInput.value) || 0;
+                
+                // Calculate scenario
+                const avgPrice = (data.returns.priceC + data.returns.priceO) / 2;
+                const avgMargin = (data.returns.marginC + data.returns.marginO) / 2;
+                const totalRevenue = units * avgPrice;
+                const grossProfit = units * avgPrice * (avgMargin / 100);
+                const investment = data.investment.baseCosts + mediaSpend;
+                const roi = investment > 0 ? grossProfit / investment : 0;
+                
+                // Update displays
+                document.getElementById('scenario-total-revenue').textContent = '$' + Math.round(totalRevenue).toLocaleString();
+                document.getElementById('scenario-revenue').textContent = '$' + Math.round(grossProfit).toLocaleString();
+                document.getElementById('scenario-production').textContent = '$' + data.investment.baseCosts.toLocaleString();
+                document.getElementById('scenario-marketing').textContent = '$' + mediaSpend.toLocaleString();
+                document.getElementById('scenario-roi').textContent = roi.toFixed(1) + 'x';
+                
+                // Highlight achieved targets
+                ['2', '3', '4', '5'].forEach(target => {
+                    const targetNum = parseInt(target);
+                    const element = document.getElementById(`target-${target}x`);
+                    if (roi >= targetNum) {
+                        element.style.background = 'var(--forest-green)';
+                        element.style.borderColor = 'var(--forest-green)';
+                        element.querySelector('div:first-child').style.color = 'white';
+                        element.querySelector('div:last-child').style.color = 'rgba(255,255,255,0.8)';
+                    } else {
+                        element.style.background = 'rgba(81, 102, 77, 0.1)';
+                        element.style.borderColor = 'transparent';
+                        element.querySelector('div:first-child').style.color = 'var(--forest-green)';
+                        element.querySelector('div:last-child').style.color = 'var(--grey)';
+                    }
+                });
+                
+                // Store the final values for when they click "See Final Results"
+                data.investment.mediaSpend = mediaSpend;
+                data.scenario = { units, revenue: grossProfit, roi };
+            }
+            
+            unitsSlider.addEventListener('input', function() {
+                unitsInput.value = this.value;
+                updateScenario();
+            });
+            
+            unitsInput.addEventListener('input', function() {
+                const value = parseInt(this.value) || minUnits;
+                const clamped = Math.max(minUnits, Math.min(maxUnits, value));
+                unitsSlider.value = clamped;
+                if (this.value != clamped) {
+                    this.value = clamped;
+                }
+                updateScenario();
+            });
+            
+            scenarioMediaSlider.addEventListener('input', function() {
+                scenarioMediaInput.value = this.value;
+                updateScenario();
+            });
+            
+            scenarioMediaInput.addEventListener('input', function() {
+                const value = parseInt(this.value) || 0;
+                const clamped = Math.max(0, Math.min(100000, value));
+                scenarioMediaSlider.value = clamped;
+                if (this.value != clamped) {
+                    this.value = clamped;
+                }
+                updateScenario();
+            });
+            
+            // Initialize scenario
+            updateScenario();
+
+            // Remove old marketing spend slider setup - replaced by scenario planner
+
+            // Show marketing spend section
+            document.getElementById('part4').classList.add('hidden');
+            document.getElementById('mediaSpendSection').classList.remove('hidden');
+            currentSection = 5;
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
+
+        function returnToScenarioPlanner() {
+            // Hide results and show marketing spend section again
+            document.getElementById('resultsScreen').style.display = 'none';
+            document.getElementById('mediaSpendSection').style.display = 'block';
+            document.getElementById('progressContainer').style.display = 'block';
+            
+            window.scrollTo(0, 0);
+        }
+
+        function calculateResults() {
+            console.log('calculateResults called');
+            console.log('data:', data);
+            
+            try {
+                // Use the scenario planner values (what the user adjusted with sliders)
+                const totalInvestment = data.investment.baseCosts + (data.investment.mediaSpend || 0);
+                console.log('totalInvestment:', totalInvestment);
+                
+                // Use the scenario revenue that was calculated from the sliders
+                const scenarioRevenue = data.scenario ? data.scenario.revenue : data.returns.conservativeTotal;
+                const scenarioUnits = data.scenario ? data.scenario.units : data.returns.unitsC;
+                
+                const revenueConservative = data.returns.conservativeTotal;
+                const revenueOptimistic = data.returns.optimisticTotal;
+                const customerCountC = data.returns.newCustomersC;
+                const customerCountO = data.returns.newCustomersO;
+
+                // Calculate scores - COMBINE idea quality + strategic into single "Idea Quality" score
+                const ideaQualityScore = Object.values(data.ideaQuality).reduce((a, b) => a + b, 0);
+                const ideaQualityPercent = (ideaQualityScore / 30) * 25;
+
+                const strategicScore = Object.values(data.strategic).reduce((a, b) => a + b, 0);
+                const strategicPercent = (strategicScore / 25) * 25;
+                
+                // Combined Idea Quality = both scores (max 50 points)
+                const combinedIdeaQuality = Math.round(ideaQualityPercent + strategicPercent);
+
+                // Use SCENARIO REVENUE (from sliders) for ROI calculation
+                const roi = totalInvestment > 0 ? (scenarioRevenue / totalInvestment) : 0;
+                const roiScore = Math.min((roi * 10), 25);
+
+                const executionScore = 12;
+                const learningScore = 8;
+
+                const totalScore = Math.round(ideaQualityPercent + strategicPercent + roiScore + executionScore + learningScore);
+
+                console.log('totalScore:', totalScore);
+                console.log('combinedIdeaQuality:', combinedIdeaQuality);
+                console.log('scenarioRevenue:', scenarioRevenue);
+                console.log('roi:', roi);
+                console.log('roiScore:', roiScore);
+
+                // Display results
+                document.getElementById('totalScore').textContent = totalScore;
+                document.getElementById('ideaScore').textContent = combinedIdeaQuality + '/50';
+                document.getElementById('expectedRevenue').textContent = '$' + Math.round(scenarioRevenue).toLocaleString();
+                document.getElementById('totalInvestment').textContent = '$' + totalInvestment.toLocaleString();
+                
+                // Calculate and display expected profit
+                const expectedProfit = scenarioRevenue - totalInvestment;
+                document.getElementById('expectedProfit').textContent = '$' + Math.round(expectedProfit).toLocaleString();
+
+                // Add scenario-based revenue display (kept for any legacy references)
+                const scenarioRevenueDisplay = document.getElementById('scenarioRevenueUsed');
+                if (scenarioRevenueDisplay) {
+                    scenarioRevenueDisplay.textContent = '$' + Math.round(scenarioRevenue).toLocaleString();
+                }
+
+                // Recommendation
+                let title, text, colorClass, showImprovement = false;
+                const customerNote = customerCountO > 0 ? ` Plus, you'll acquire approximately ${customerCountC.toLocaleString()}-${customerCountO.toLocaleString()} new customers.` : '';
+                
+                if (totalScore >= 90) {
+                    title = 'Green Light – Pursue Immediately';
+                    text = `This is a strong concept worth pursuing. Your idea quality score (${combinedIdeaQuality}/50) is high. With $${(data.investment.mediaSpend || 0).toLocaleString()} in marketing spend and ${scenarioUnits.toLocaleString()} units sold, your projected ROI is ${roi.toFixed(1)}x.${customerNote} Move forward with confidence.`;
+                    colorClass = 'green';
+                } else if (totalScore >= 70) {
+                    title = 'Yellow Light – Needs Refinement';
+                    text = `This concept has potential but needs work before moving forward. With ${scenarioUnits.toLocaleString()} units sold and $${(data.investment.mediaSpend || 0).toLocaleString()} marketing spend, you're projecting a ${roi.toFixed(1)}x ROI.${customerNote} Review the improvement recommendations below to strengthen your concept and move it into the green zone.`;
+                    colorClass = 'yellow';
+                    showImprovement = true;
+                } else {
+                    title = 'Red Light – Not Worth Pursuing';
+                    text = `Based on the analysis, this concept doesn't justify the investment. At ${scenarioUnits.toLocaleString()} units sold with $${(data.investment.mediaSpend || 0).toLocaleString()} marketing spend, your ${roi.toFixed(1)}x ROI is too low. Before giving up completely, review the improvement recommendations below to see if there's a path to making this work.`;
+                    colorClass = 'red';
+                    showImprovement = true;
+                }
+
+                const titleEl = document.getElementById('recommendationTitle');
+                titleEl.textContent = title;
+                
+                const cardEl = document.getElementById('recommendationCard');
+                if (colorClass === 'green') {
+                    cardEl.style.background = '#51664d';
+                    cardEl.style.color = 'white';
+                } else if (colorClass === 'yellow') {
+                    cardEl.style.background = '#f4a261';
+                    cardEl.style.color = 'white';
+                } else {
+                    cardEl.style.background = '#af331b';
+                    cardEl.style.color = 'white';
+                }
+                
+                document.getElementById('recommendationText').textContent = text;
+
+                console.log('About to show results screen');
+                
+                // Hide marketing spend section and show results (DON'T destroy HTML)
+                document.getElementById('mediaSpendSection').style.display = 'none';
+                document.getElementById('progressContainer').style.display = 'none';
+                document.getElementById('resultsScreen').style.display = 'block';
+                
+                // Show improvement section if needed
+                if (showImprovement) {
+                    document.getElementById('improvementSection').style.display = 'block';
+                    showImprovementWorkflow(totalScore, ideaQualityScore, strategicScore, roi);
+                } else {
+                    document.getElementById('improvementSection').style.display = 'none';
+                }
+                
+                window.scrollTo(0, 0);
+                
+                console.log('Results screen display set to block');
+            } catch (error) {
+                console.error('Error in calculateResults:', error);
+                alert('Error calculating results: ' + error.message);
+            }
+        }
+
+        function showImprovementWorkflow(totalScore, ideaQualityScore, strategicScore, roi) {
+            const section = document.getElementById('improvementSection');
+            const content = document.getElementById('improvementContent');
+            
+            // Calculate percentages for analysis
+            const ideaPercent = (ideaQualityScore / 30) * 100;
+            const strategicPercent = (strategicScore / 25) * 100;
+            const mediaSpend = data.investment.mediaSpend || 0;
+            const baseCosts = data.investment.baseCosts;
+            const totalInvestment = baseCosts + mediaSpend;
+            
+            // Get revenue numbers
+            const conservativeRevenue = data.returns.conservativeTotal;
+            const optimisticRevenue = data.returns.optimisticTotal;
+            const avgPrice = (data.returns.priceC + data.returns.priceO) / 2;
+            const avgMargin = (data.returns.marginC + data.returns.marginO) / 2;
+            
+            let html = '';
+
+            // WHAT'S WORKING
+            html += '<div style="background: white; padding: 32px; margin-bottom: 16px; border-left: 4px solid var(--forest-green);">';
+            html += '<h4 style="font-family: \'Helvetica Neue\', sans-serif; font-weight: 700; font-size: 18px; margin-bottom: 16px; color: var(--forest-green);">✓ What\'s Working</h4>';
+            html += '<ul style="list-style: none; padding: 0; margin: 0;">';
+            
+            if (ideaPercent >= 70) {
+                html += '<li style="margin-bottom: 12px; font-family: \'Aktiv Grotesk\', sans-serif; font-size: 14px; line-height: 1.6;"><strong>Strong Creative Concept:</strong> Your idea scored ' + Math.round(ideaPercent) + '%. The team believes in this.</li>';
+            } else if (ideaPercent >= 50) {
+                html += '<li style="margin-bottom: 12px; font-family: \'Aktiv Grotesk\', sans-serif; font-size: 14px; line-height: 1.6;"><strong>Solid Foundation:</strong> Idea quality at ' + Math.round(ideaPercent) + '% - there\'s something here.</li>';
+            }
+            
+            if (strategicPercent >= 70) {
+                html += '<li style="margin-bottom: 12px; font-family: \'Aktiv Grotesk\', sans-serif; font-size: 14px; line-height: 1.6;"><strong>Strategic Alignment:</strong> Scores ' + Math.round(strategicPercent) + '% on strategic value.</li>';
+            }
+            
+            if (roi >= 2) {
+                html += '<li style="margin-bottom: 12px; font-family: \'Aktiv Grotesk\', sans-serif; font-size: 14px; line-height: 1.6;"><strong>Positive ROI:</strong> ' + roi.toFixed(1) + 'x return - the math works.</li>';
+            }
+            
+            if ((data.returns.newCustomersC + data.returns.newCustomersO) / 2 > 500) {
+                const avgCustomers = Math.round((data.returns.newCustomersC + data.returns.newCustomersO) / 2);
+                html += '<li style="margin-bottom: 12px; font-family: \'Aktiv Grotesk\', sans-serif; font-size: 14px; line-height: 1.6;"><strong>Customer Acquisition:</strong> ~' + avgCustomers.toLocaleString() + ' new customers brings long-term value.</li>';
+            }
+            
+            html += '</ul></div>';
+
+            // SPECIFIC PROBLEMS & SOLUTIONS
+            html += '<div style="background: white; padding: 32px; margin-bottom: 16px; border-left: 4px solid var(--amber);">';
+            html += '<h4 style="font-family: \'Helvetica Neue\', sans-serif; font-weight: 700; font-size: 18px; margin-bottom: 16px; color: var(--amber);">⚠ Specific Problems</h4>';
+            html += '<ul style="list-style: none; padding: 0; margin: 0;">';
+            
+            // Problem 1: ROI too low
+            if (roi < 2) {
+                const targetROI = 3;
+                const neededRevenue = totalInvestment * targetROI;
+                const revenueGap = neededRevenue - optimisticRevenue;
+                const neededUnits = Math.ceil(revenueGap / (avgPrice * (avgMargin / 100)));
+                
+                html += '<li style="margin-bottom: 16px; font-family: \'Aktiv Grotesk\', sans-serif; font-size: 14px; line-height: 1.6;">';
+                html += '<strong style="color: var(--amber);">ROI is ' + roi.toFixed(1) + 'x - Too Low</strong><br>';
+                html += 'To hit a 3x ROI with $' + totalInvestment.toLocaleString() + ' investment, you need $' + Math.round(neededRevenue).toLocaleString() + ' in revenue. ';
+                html += 'That\'s a gap of $' + Math.round(revenueGap).toLocaleString() + ' - roughly ' + neededUnits.toLocaleString() + ' more units at your current price/margin.';
+                html += '</li>';
+            }
+            
+            // Problem 2: Idea quality weak
+            if (ideaPercent < 50) {
+                html += '<li style="margin-bottom: 16px; font-family: \'Aktiv Grotesk\', sans-serif; font-size: 14px; line-height: 1.6;">';
+                html += '<strong style="color: var(--amber);">Weak Creative - ' + Math.round(ideaPercent) + '%</strong><br>';
+                html += 'Scored below 3/5 on multiple questions. The team\'s gut is telling you something. A weak concept won\'t perform no matter the budget.';
+                html += '</li>';
+            } else if (ideaPercent < 70) {
+                html += '<li style="margin-bottom: 16px; font-family: \'Aktiv Grotesk\', sans-serif; font-size: 14px; line-height: 1.6;">';
+                html += '<strong style="color: var(--amber);">Idea Quality at ' + Math.round(ideaPercent) + '% - Middling</strong><br>';
+                html += 'Not bad, but not memorable. Risk getting lost in the noise.';
+                html += '</li>';
+            }
+            
+            // Problem 3: Media spend too high for weak concept
+            if (mediaSpend > 20000 && ideaPercent < 70) {
+                html += '<li style="margin-bottom: 16px; font-family: \'Aktiv Grotesk\', sans-serif; font-size: 14px; line-height: 1.6;">';
+                html += '<strong style="color: var(--amber);">$' + mediaSpend.toLocaleString() + ' Media on ' + Math.round(ideaPercent) + '% Concept</strong><br>';
+                html += 'Throwing money at a mediocre idea. Cut marketing spend in half and test first.';
+                html += '</li>';
+            }
+            
+            // Problem 4: Low margin
+            if (avgMargin < 50) {
+                const targetMargin = 60;
+                const currentGrossProfit = data.returns.unitsO * data.returns.priceO * (avgMargin / 100);
+                const improvedGrossProfit = data.returns.unitsO * data.returns.priceO * (targetMargin / 100);
+                const marginImpact = improvedGrossProfit - currentGrossProfit;
+                
+                html += '<li style="margin-bottom: 16px; font-family: \'Aktiv Grotesk\', sans-serif; font-size: 14px; line-height: 1.6;">';
+                html += '<strong style="color: var(--amber);">Low Margin - ' + Math.round(avgMargin) + '%</strong><br>';
+                html += 'If you could improve margin to 60% (reduce COGS, optimize pricing), you\'d gain $' + Math.round(marginImpact).toLocaleString() + ' in gross profit without selling more units.';
+                html += '</li>';
+            }
+            
+            // Problem 5: Conservative-optimistic gap too wide
+            const gap = optimisticRevenue / Math.max(conservativeRevenue, 1);
+            if (gap > 2.5 && conservativeRevenue < totalInvestment) {
+                html += '<li style="margin-bottom: 16px; font-family: \'Aktiv Grotesk\', sans-serif; font-size: 14px; line-height: 1.6;">';
+                html += '<strong style="color: var(--amber);">Betting on Optimistic Case</strong><br>';
+                html += 'Conservative ($' + Math.round(conservativeRevenue).toLocaleString() + ') doesn\'t even cover costs. You\'re banking on selling ' + data.returns.unitsO.toLocaleString() + ' units vs. ' + data.returns.unitsC.toLocaleString() + '. That\'s risky.';
+                html += '</li>';
+            }
+            
+            html += '</ul></div>';
+
+            // CONCRETE NEXT STEPS
+            html += '<div style="background: white; padding: 32px; border-left: 4px solid var(--birdie-blue);">';
+            html += '<h4 style="font-family: \'Helvetica Neue\', sans-serif; font-weight: 700; font-size: 18px; margin-bottom: 16px; color: var(--birdie-blue);">→ What To Do</h4>';
+            html += '<div style="font-family: \'Aktiv Grotesk\', sans-serif; font-size: 14px; line-height: 1.6;">';
+            
+            // Recommendation priority based on biggest lever
+            const recommendations = [];
+            
+            // Check if it's fundamentally broken
+            if (totalScore < 60 && ideaPercent < 50) {
+                recommendations.push({
+                    priority: 1,
+                    text: '<strong>Shelve this concept.</strong> A ' + totalScore + '/100 score with ' + Math.round(ideaPercent) + '% idea quality suggests fundamental issues. Don\'t throw good money after a weak idea. What else could you pursue with these resources?'
+                });
+            }
+            
+            // Check margin opportunities
+            if (avgMargin < 50 && roi < 3) {
+                const targetMargin = Math.min(70, avgMargin + 15);
+                const newRevenue = data.returns.unitsO * data.returns.priceO * (targetMargin / 100);
+                const newROI = newRevenue / totalInvestment;
+                recommendations.push({
+                    priority: 2,
+                    text: '<strong>Improve your margin from ' + Math.round(avgMargin) + '% to ' + targetMargin + '%.</strong> This could be: negotiate better COGS, reduce production costs, or increase pricing slightly. Would boost ROI from ' + roi.toFixed(1) + 'x to ' + newROI.toFixed(1) + 'x without selling more units.'
+                });
+            }
+            
+            // Check if they should reduce marketing spend
+            if (mediaSpend > baseCosts && roi < 2) {
+                const reducedMedia = Math.floor(mediaSpend * 0.5);
+                const newInvestment = baseCosts + reducedMedia;
+                const newROI = optimisticRevenue / newInvestment;
+                recommendations.push({
+                    priority: 2,
+                    text: '<strong>Cut marketing spend from $' + mediaSpend.toLocaleString() + ' to $' + reducedMedia.toLocaleString() + '.</strong> Test with half the budget first. This would improve ROI from ' + roi.toFixed(1) + 'x to ' + newROI.toFixed(1) + 'x.'
+                });
+            }
+            
+            // Check if they need more units
+            if (roi < 2 && conservativeRevenue < totalInvestment) {
+                const breakEvenRevenue = totalInvestment;
+                const breakEvenUnits = Math.ceil(breakEvenRevenue / (avgPrice * (avgMargin / 100)));
+                const unitsNeeded = breakEvenUnits - data.returns.unitsC;
+                recommendations.push({
+                    priority: 3,
+                    text: '<strong>Sell ' + unitsNeeded.toLocaleString() + ' more units to break even.</strong> Your conservative estimate is ' + data.returns.unitsC.toLocaleString() + ' units - you need ' + breakEvenUnits.toLocaleString() + ' just to cover the $' + totalInvestment.toLocaleString() + ' investment. Is that realistic?'
+                });
+            }
+            
+            // Check creative quality
+            if (ideaPercent >= 50 && ideaPercent < 70) {
+                recommendations.push({
+                    priority: 3,
+                    text: '<strong>Sharpen the creative.</strong> Scored ' + Math.round(ideaPercent) + '% - it\'s fine but not great. Can you add a twist, make it more distinctive, or give it more stopping power? Sometimes one change makes all the difference.'
+                });
+            }
+            
+            // Sort by priority and display
+            recommendations.sort((a, b) => a.priority - b.priority);
+            recommendations.forEach((rec, index) => {
+                html += '<p style="margin-bottom: ' + (index < recommendations.length - 1 ? '20px' : '0') + ';">';
+                html += '<strong style="color: var(--birdie-blue);">' + (index + 1) + '.</strong> ' + rec.text;
+                html += '</p>';
+            });
+            
+            if (recommendations.length === 0) {
+                html += '<p>You\'re close to green. Small tweaks could push this over the threshold. Use the Scenario Planner above to explore different combinations of units and marketing spend.</p>';
+            }
+            
+            html += '</div></div>';
+
+            content.innerHTML = html;
+            section.classList.remove('hidden');
+        }
+
+    </script>
+</body>
+</html>
