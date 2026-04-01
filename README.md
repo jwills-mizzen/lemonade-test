@@ -1,4 +1,4 @@
-[mizzen-main-concept-analyzer (2).html](https://github.com/user-attachments/files/26419536/mizzen-main-concept-analyzer.2.html)
+[mizzen-main-concept-analyzer (3).html](https://github.com/user-attachments/files/26419822/mizzen-main-concept-analyzer.3.html)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1437,9 +1437,72 @@
             unitsSlider.value = defaultUnits;
             unitsInput.value = defaultUnits;
             
-            const scenarioMediaSlider = document.getElementById('scenarioMediaSlider');
             const scenarioMediaInput = document.getElementById('scenarioMedia');
             scenarioMediaInput.value = 0;
+            
+            // Initialize the scenario planner
+            setupScenarioPlanner();
+
+            // Show marketing spend section
+            document.getElementById('part4').classList.add('hidden');
+            document.getElementById('mediaSpendSection').classList.remove('hidden');
+            currentSection = 5;
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
+
+        function returnToScenarioPlanner() {
+            // Restore the saved marketing spend section
+            if (window.savedMarketingSpendHTML && window.savedProgressHTML) {
+                const container = document.querySelector('.container');
+                container.innerHTML = `
+                    <div class="header">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🍋</div>
+                        <h1>The Lemonade Test</h1>
+                        <p class="subtitle">A framework for analyzing fruit, its potential to be juice, and whether or not we should squeeze.</p>
+                    </div>
+                ` + window.savedProgressHTML + window.savedMarketingSpendHTML;
+                
+                // Re-initialize the scenario planner sliders with saved values
+                const unitsSlider = document.getElementById('scenarioUnitsSlider');
+                const unitsInput = document.getElementById('scenarioUnits');
+                const scenarioMediaSlider = document.getElementById('scenarioMediaSlider');
+                const scenarioMediaInput = document.getElementById('scenarioMedia');
+                
+                if (unitsSlider && data.scenario) {
+                    unitsSlider.value = data.scenario.units;
+                    unitsInput.value = data.scenario.units;
+                }
+                
+                if (scenarioMediaSlider && data.investment.mediaSpend !== undefined) {
+                    scenarioMediaSlider.value = data.investment.mediaSpend;
+                    scenarioMediaInput.value = data.investment.mediaSpend;
+                }
+                
+                // Re-attach event listeners
+                setupScenarioPlanner();
+                
+                window.scrollTo(0, 0);
+            } else {
+                // Fallback: reload if we don't have saved HTML
+                location.reload();
+            }
+        }
+        
+        function setupScenarioPlanner() {
+            // This function sets up the scenario planner event listeners
+            // Called both initially and when returning from results
+            
+            const minUnits = Math.floor(data.returns.unitsC * 0.5);
+            const maxUnits = data.returns.unitsO;
+            const defaultUnits = data.returns.unitsO;
+            
+            const unitsSlider = document.getElementById('scenarioUnitsSlider');
+            const unitsInput = document.getElementById('scenarioUnits');
+            const scenarioMediaSlider = document.getElementById('scenarioMediaSlider');
+            const scenarioMediaInput = document.getElementById('scenarioMedia');
+            
+            if (!unitsSlider || !scenarioMediaSlider) return; // Elements not ready yet
             
             function updateScenario() {
                 const units = parseInt(unitsInput.value) || defaultUnits;
@@ -1514,24 +1577,6 @@
             
             // Initialize scenario
             updateScenario();
-
-            // Remove old marketing spend slider setup - replaced by scenario planner
-
-            // Show marketing spend section
-            document.getElementById('part4').classList.add('hidden');
-            document.getElementById('mediaSpendSection').classList.remove('hidden');
-            currentSection = 5;
-            updateProgress();
-            window.scrollTo(0, 0);
-        }
-
-        function returnToScenarioPlanner() {
-            // Hide results and show marketing spend section again
-            document.getElementById('resultsScreen').style.display = 'none';
-            document.getElementById('mediaSpendSection').style.display = 'block';
-            document.getElementById('progressContainer').style.display = 'block';
-            
-            window.scrollTo(0, 0);
         }
 
         function calculateResults() {
@@ -1597,7 +1642,7 @@
                 let title, text, colorClass, showImprovement = false;
                 const customerNote = customerCountO > 0 ? ` Plus, you'll acquire approximately ${customerCountC.toLocaleString()}-${customerCountO.toLocaleString()} new customers.` : '';
                 
-                if (totalScore >= 90) {
+                if (totalScore >= 85) {
                     title = 'Green Light – Pursue Immediately';
                     text = `This is a strong concept worth pursuing. Your idea quality score (${combinedIdeaQuality}/50) is high. With $${(data.investment.mediaSpend || 0).toLocaleString()} in marketing spend and ${scenarioUnits.toLocaleString()} units sold, your projected ROI is ${roi.toFixed(1)}x.${customerNote} Move forward with confidence.`;
                     colorClass = 'green';
@@ -1632,10 +1677,28 @@
 
                 console.log('About to show results screen');
                 
-                // Hide marketing spend section and show results (DON'T destroy HTML)
-                document.getElementById('mediaSpendSection').style.display = 'none';
-                document.getElementById('progressContainer').style.display = 'none';
-                document.getElementById('resultsScreen').style.display = 'block';
+                // Save the marketing spend section HTML BEFORE we destroy it
+                if (!window.savedMarketingSpendHTML) {
+                    window.savedMarketingSpendHTML = document.getElementById('mediaSpendSection').outerHTML;
+                    window.savedProgressHTML = document.getElementById('progressContainer').outerHTML;
+                }
+                
+                // Get the results screen HTML before we destroy anything
+                const resultsScreenHTML = document.getElementById('resultsScreen').outerHTML;
+                
+                // NUCLEAR OPTION: Replace entire container content (this was working)
+                const container = document.querySelector('.container');
+                container.innerHTML = `
+                    <div class="header">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🍋</div>
+                        <h1>The Lemonade Test</h1>
+                        <p class="subtitle">A framework for analyzing fruit, its potential to be juice, and whether or not we should squeeze.</p>
+                    </div>
+                ` + resultsScreenHTML;
+                
+                // Make results visible
+                const newResultsScreen = document.getElementById('resultsScreen');
+                newResultsScreen.style.display = 'block';
                 
                 // Show improvement section if needed
                 if (showImprovement) {
